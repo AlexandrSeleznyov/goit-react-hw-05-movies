@@ -8,7 +8,13 @@ export default function Cast({ movieId }) {
   const location = useLocation();
 
   useEffect(() => {
-    findActors(movieId).then((res) => setActors(res.data.cast));
+    async function fetchFilms() {
+      try {
+        const res = await findActors(movieId);
+        setActors(res.data.cast);
+      } catch (e) {}
+    }
+    fetchFilms();
   }, [movieId]);
 
   const actorsPhoto = (actor) => {

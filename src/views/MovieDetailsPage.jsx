@@ -25,10 +25,14 @@ export default function MovieDetailsPage() {
   console.log("location film", location);
 
   useEffect(() => {
-    findFilmById(movieId).then((res) => {
-      setMovie(res.data);
-      setGenres(res.data.genres);
-    });
+    async function fetchFilms() {
+      try {
+        const res = await findFilmById(movieId);
+        setMovie(res.data);
+        setGenres(res.data.genres);
+      } catch (e) {}
+    }
+    fetchFilms();
   }, [movieId]);
 
   const genresList = (genres) => {

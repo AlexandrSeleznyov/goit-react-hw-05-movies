@@ -10,9 +10,13 @@ export default function HomePage() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetchTrendingMovies().then((res) => {
-      setMovies(res.data.results);
-    });
+    async function fetchFilms() {
+      try {
+        const res = await fetchTrendingMovies();
+        setMovies(res.data.results);
+      } catch (e) {}
+    }
+    fetchFilms();
   }, []);
 
   return (

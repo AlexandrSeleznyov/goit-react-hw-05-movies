@@ -5,7 +5,13 @@ export default function Review({ movieId }) {
   const [review, setReview] = useState([]);
 
   useEffect(() => {
-    findReview(movieId).then((res) => setReview(res.data.results));
+    async function fetchFilms() {
+      try {
+        const res = await findReview(movieId);
+        setReview(res.data.results);
+      } catch (e) {}
+    }
+    fetchFilms();
   }, [movieId]);
 
   return (

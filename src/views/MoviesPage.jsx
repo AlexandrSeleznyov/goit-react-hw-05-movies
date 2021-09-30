@@ -20,11 +20,14 @@ export default function MoviesPage() {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    findFilms(name).then((res) => {
-      setFilms(res.data.results);
-    });
+    async function findFilm() {
+      try {
+        const res = await findFilms(name);
+        setFilms(res.data.results);
+      } catch (e) {}
+    }
+    findFilm();
   };
-
   return (
     <>
       <form onSubmit={handleSubmitForm}>
